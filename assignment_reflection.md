@@ -1,0 +1,99 @@
+# Assignment 2: Project Writeup/Reflection
+ 
+## Project Overview
+
+In this project, I used two Wikipedia pages' content as my data sources, one about **"Blackpink"** and the other one about **"BTS"**. From my Global Pop course this semester, I was able to dive deep into the K-pop culture and music in South Korea, and how the agency manufactures the music and the idol group so that it reach global market and make profit from it. Blackpink and BTS are two idol groups that are currently famous all around the world. They are not only able to attract domestic audience but also reach global audience. Thereore, by analyzing the text content on both pages, I am intended to learn more about the similarity and difference between two groups. To analyze the text, I mainly use techniques like **characterizing by word frequencies**, **computing summary statistics**, and **text similarity**. 
+
+## Implementation
+
+To start with, I read in two texts from Wikipedia as strings, and then split it into words. After stripping all the unnecessary symbol or punctutaion, I create and return a dictionary, where the keys are words that appear in the text and the values are frequencies of words appearing in the text. Here, I choose to filter out words that appear less than 10 times, so that we could focus on the more curcial words. The reason I choose dictionary here instead of other types is that I feel like dictionary is the best tool to store key-value pair and count number of words and frequency it appears in one text. I also observe the total number of words and unique words in each text. 
+
+After observing the frequency of words in each text, I realized that there are lots of words like "a" and "the" appearing many times in the text, which are words that we want to exclude from the dictionary since they are not necessary. Therefore, I remove these stopwords or meaningless words from the dictionary. Later, I sort the frequency of words in descending order so that I could get a sense of the most common words in each text. With the output of a list of (frequency, word) pairs in descending order, we could analyze closely by only looking at the top 30 most common words in each text. So, I print out the top 30 most common words in each text, which might help people to get a sense of what each text is talking about, and whether there are some similarities between most common words from each text. Furthermore, we want to observe the difference between two texts. So, we returns a word list of words appear in Blackpink's text but not in BTS's text. By comparing keys in both dictionaries, we can see whether there are keys appear in one but not in another. 
+
+Since the main goal is still in analyzing the similarity and difference between two text, we dive deeper into the similarity. So, we try to compute the similarity ratio of two texts. With the FuzzyWuzzy Library, I am able to calculate the similarity ratio between two strings and returns a similarity percentage. However, consider the similarity of text containing words like "a" and "the", we then compute token sort ratio. In this part, we tokenize and remove uneccessary elements in the strings, and then sort strings alphabetically to calculate the similarity ratio. With this ratio, we are able to analyze similarity without some biases, especially when two texts contains many similar words but in different orders. Last but not least, considering the fact of both texts have different length, we consider calculating token set ratio, which is most beneficial in comparing similarity of texts when two texts have different lengths. Overall, by observing and comparing three different ratio, we should be able to help people get a sense of how similar these two strings are from each other.
+
+## Results
+**1. Summary Statistics**: From the summary statistics below, we can see that Blackpink's wikipedia content are shorter than BTS's wikipedia content, with more unique words in BTS's content. 
+- Total number of words in Blackpink's page are: 3410
+- Number of different words in Blackpink's content are: 92
+- Total number of words in BTS's page are: 4696
+- Number of different words in BTS's content are: 120
+
+**2. Top 30 Most Common Words**: 
+- The top 30 common words appear in Blackpink's content are: 
+    group    87
+    blackpink    83
+    first    79
+    music    70
+    korean   48
+    girl     45
+    album    44
+    number   42
+    chart    35
+    video    34
+    song     29
+    2020     29
+    one      28
+    k-pop    28
+    billboard    28
+    ==    26
+    release    25
+    yg       24
+    also     23
+    2019     23
+    world    22
+    single   22
+    released    22
+    debut    21
+    south    20
+    new      20
+    became   20
+    2018     20
+    group's    19
+    female    19
+- From the above list of words, we can see that the most common words includes "group", "blackpink", "korean", and "yg", which make sense because Blackpink is a female idol group in Korea, and they are formed and managed by YG Entertainment. But then, we see that there are many other words like "music", "album", "video", and "song". This is probabily because the wikipedia spends lots of time talking about the music album and the music video the group created, and introduce the group to the audience by mentioning their songs in the past. 
+- The top 30 common words appear in BTS's content are: 
+    bts      173
+    album    80
+    first    71
+    korean   64
+    music    47
+    group    44
+    love     39
+    single   37
+    released    37
+    south    36
+    number   35
+    chart    34
+    billboard    34
+    awards   33
+    one      30
+    ==       28
+    world    26
+    tour     26
+    2019     26
+    became   25
+    soul     24
+    year     23
+    million    23
+    top      22
+    k-pop    22
+    global   22
+    us       21
+    map      21
+    concert    21
+    2020     21
+- From the above list, we see most common words also includes "bts", "group", "korea", because they are a male K-pop idol group from Korea as well. Similarly, they also have many words like "music", "album", "released", which shows that Wikipedia mentioned a lot about their music and album creation in the page.
+- Similarity: By observing the word list from these two texts, we can find similarity of how Wikipedia introduced a K-pop idol group. It tends to mention their music and album released year a lot to help the audience understand the group and their music. At the same time, we see common words like "billboard", "awards", and "chart". Because Wikipedia also spends many times discussing the past awards these groups won, such as US Billboard chart. By seeing both groups achievement association with US Billboard, we can understand how these two groups successfuly enter the global and western market and gain their recognition. 
+- Difference: Different from Blackpink's word list, we see that one the most common word from BTS's content is "love". The reason is because that most of the songs of BTS contains message or theme about love and self-love, which might be quite different from the messgae that Blackpink's song delievered. 
+
+**3. Text Similarity**: 
+- **Ratio**: The Levenshtein distance similarity ratio between Blackpink's content and BTS's content is 42%.
+- **Token Sort Ratio**: The Levenshtein distance similarity ratio between Blackpink's content and BTS's content is 69%.
+- **Token Set Ratio**: The Levenshtein distance similarity ratio between Blackpink's content and BTS's content is 67%.
+- Overall, the similarity ratio between two texts is 42%, which is less than 50%. So, this might leads us to make the conclusion that two texts are not that similar to each other. However, with more details analysis and other metrics like token sort ratio and token set ratio, we can see that two texts are actually relatively similar to each other. With token sort ratio being 69%, we can understand that they two texts might have many similar components in the texts though they might be written in different order. This make sense because Wikipedia might introduce two different groups with different ways and sentences structures. Also, as we notice previously of how BTS's content is longer than Blackpink's content, it might be better to pay attention to token set ratio as well, because this metric is better when comparing similarity of two texts have different lengths. Therefore, with a higher percentages for token sort ratio and token set ratio, we said that there is a relative similarity between the two texts. 
+
+**In conclusion**, we can see that though there are some difference in terms of how Wikipedia introduce both idol groups, there are still many similarities between two texts, for instance, introducing both groups through their music and video, and how both groups have been able to reach a larger audience and a global market. 
+
+## Reflection
+I think the process of characterizing by word frequencies went pretty well. Being able to use dictionary to map key to value, I was able to show the frequency of each word clearly. That really helps me later with sorting by frequencies and finding the most common words, and finding similarities and difference between two texts. At the end, I was able to summaries some similarities and difference between two texts, learning how similar Wikipedia is in terms of the way it introduced these two idol groups. However, because both groups are from Korea and there is a lot of similarity in terms of how they win awards with their music and gain popularity with their song and music video, I was not really able to dive deep into the difference between these two groups. Therefore, to improve the project a little bit more, I think it would be a good idea to look specifically into the songs created by each groups, and compare and contrast their Wikipedia's introduction. By looking closely to their musics, I might be able to find the differences between two groups in terms of their music theme, music styles, and music structure, etc. I wish that I could learn or know more about data visualization using Python before this project, so that instead of simply using data and words to summarize the analysis result, I might also use visualization to describe the similarity and difference between two texts. In this way, the audience might have a better understanding of the similarity and difference of two texts through different angles. 
